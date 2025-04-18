@@ -1,0 +1,50 @@
+# ─── Client ──────────────────────────────────────
+client/node_modules/
+client/dist/
+client/dist-ssr/
+client/*.local
+
+# Client Logs
+client/logs/
+client/*.log
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*
+client/pnpm-debug.log*
+client/lerna-debug.log*
+
+# Client IDE files
+client/.vscode/*
+!client/.vscode/extensions.json
+client/.idea/
+client/.DS_Store
+client/*.suo
+client/*.ntvs*
+client/*.njsproj
+client/*.sln
+client/*.sw?
+
+# Node dependencies
+server/node_modules/
+client/node_modules/
+
+# Build output
+server/dist/
+client/dist/
+
+# Prisma + Generated
+server/generated/
+
+# Environment variables
+server/.env
+client/.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS + IDEs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
