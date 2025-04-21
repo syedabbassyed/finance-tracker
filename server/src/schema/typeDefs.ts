@@ -29,5 +29,6 @@ export const typeDefs = `#graphql
     signup(name: String!, email: String!, password: String!): AuthPayload!
     login(email: String!, password: String!): AuthPayload!
     createGoal(title: String!, targetAmount: Float!, targetDate: String!): Goal!
+    updateGoalProgress(goalId: String!, amount: Float!): Goal!
   }
 `;

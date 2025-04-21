@@ -38,7 +38,38 @@ export const goalResolvers = {
               
 
             return goal;
-        }
+        },
+        updateGoalProgress: async (_: any, args: { goalId: string, amount: number }, ctx: Context) => {
+            isAuthenticated(ctx);
+
+            const { goalId, amount } = args;
+
+            if (amount <= 0) {
+                throw new GraphQLError("Amount must be greater than 0");
+            }
+
+            const goal = await ctx.prisma.goal.findFirst({
+                where: {
+                    id: goalId,
+                    userId: ctx.userID!
+                }
+            });
+
+            if (!goal) {
+                throw new GraphQLError("Goal not found");
+            }
+
+            const updateGoal = await ctx.prisma.goal.update({
+                where: {
+                    id: goalId
+                },
+                data: {
+                    currentAmount: goal.currentAmount + amount
+                }
+            });
+
+            return updateGoal;
+        },
     },
 
     Query: {
