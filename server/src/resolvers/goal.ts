@@ -103,6 +103,30 @@ export const goalResolvers = {
             });
 
             return updateGoal;
+        },
+        deleteGoal: async (_: any, args: { goalId: string; }, ctx: Context) => {
+            isAuthenticated(ctx);
+
+            const { goalId } = args;
+
+            const goal = await ctx.prisma.goal.findFirst({
+                where: {
+                    id: goalId
+                }
+            });
+
+            if (!goal) {
+                throw new GraphQLError('Goal not Found');
+            }
+
+            await ctx.prisma.goal.delete({
+                where: {
+                    id: goalId
+                }
+            });
+
+            return goal;
+
         }
     },
 
