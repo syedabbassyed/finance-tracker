@@ -39,7 +39,7 @@ export const goalResolvers = {
 
             return goal;
         },
-        updateGoalProgress: async (_: any, args: { goalId: string, amount: number }, ctx: Context) => {
+        updateGoalProgress: async (_: any, args: { goalId: string; amount: number }, ctx: Context) => {
             isAuthenticated(ctx);
 
             const { goalId, amount } = args;
@@ -70,6 +70,40 @@ export const goalResolvers = {
 
             return updateGoal;
         },
+        editGoal: async (_:any, args: {
+            goalId: string;
+            title?: string;
+            targetAmount?: number;
+            targetDate?: string;
+        }, ctx: Context) => {
+            isAuthenticated(ctx);
+
+            const { goalId, title, targetAmount, targetDate } = args;
+
+            const goal = await ctx.prisma.goal.findFirst({
+                where: {
+                    id: goalId,
+                    userId: ctx.userID!
+                }
+            });
+
+            if (!goal) {
+                throw new GraphQLError("Goal not found");
+            }
+
+            const updateGoal = await ctx.prisma.goal.update({
+                where: {
+                    id: goalId
+                },
+                data: {
+                    ...(title && { title }),
+                    ...(targetAmount && { targetAmount }),
+                    ...(targetDate && { targetDate: new Date(targetDate) })
+                }
+            });
+
+            return updateGoal;
+        }
     },
 
     Query: {

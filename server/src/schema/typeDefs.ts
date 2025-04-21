@@ -30,5 +30,6 @@ export const typeDefs = `#graphql
     login(email: String!, password: String!): AuthPayload!
     createGoal(title: String!, targetAmount: Float!, targetDate: String!): Goal!
     updateGoalProgress(goalId: String!, amount: Float!): Goal!
+    editGoal(goalId: String!, title: String, targetAmount: Float, targetDate: String): Goal!
   }
 `;
