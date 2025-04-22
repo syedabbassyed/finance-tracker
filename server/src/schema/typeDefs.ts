@@ -19,10 +19,25 @@ export const typeDefs = `#graphql
     createdAt: String!
   }
 
+  type Account {
+    id: String!
+    name: String!
+    balance: Float!
+    createdAt: String!
+    type: AccountType!
+  }
+
+  type AccountType {
+    id: String!
+    name: String!
+  }
+
   type Query {
     hello: String!
     me: User
     getGoals: [Goal!]!
+    getAccounts: [Account!]!
+    getAccountTypes: [AccountType!]!
   }
 
   type Mutation {
@@ -32,5 +47,8 @@ export const typeDefs = `#graphql
     updateGoalProgress(goalId: String!, amount: Float!): Goal!
     editGoal(goalId: String!, title: String, targetAmount: Float, targetDate: String): Goal!
     deleteGoal(goalId: String!): Goal!
+    createAccount(name: String!, typeId: String!): Account!
+    deleteAccount(accountId: String!): Account!
+    editAccount(accountId: String!, name: String, typeId: String): Account!
   }
 `;
