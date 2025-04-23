@@ -1,0 +1,18 @@
+type Bill {
+    id: String!
+    name: String!
+    amount: Float!
+    dueDate: String!
+    recurring: String!
+    createdAt: String!
+}
+
+extend type Query {
+    getUpcomingBills: [Bill!]!
+}
+
+extend type Mutation {
+  createBill(name: String!, amount: Float!, dueDate: String!, recurring: String!): Bill!
+  deleteBill(billId: String!): Bill!
+  editBill(billId: String!, name: String, amount: Float, dueDate: String, recurring: String): Bill!
+}
