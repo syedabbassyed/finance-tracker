@@ -1,0 +1,23 @@
+type Account {
+    id: String!
+    name: String!
+    balance: Float!
+    createdAt: String!
+    type: AccountType!
+}
+
+type AccountType {
+    id: String!
+    name: String!
+}
+
+extend type Query {
+    getAccounts: [Account!]!
+    getAccountTypes: [AccountType!]!
+}
+
+extend type Mutation {
+    createAccount(name: String!, typeId: String!): Account!
+    editAccount(accountId: String!, name: String, typeId: String): Account!
+    deleteAccount(accountId: String!): Account!
+}

@@ -1,0 +1,30 @@
+enum TransactionType {
+    INCOME
+    EXPENSE
+}
+
+type Transaction {
+    id: String!
+    amount: Float!
+    type: TransactionType!
+    date: String!
+    account: Account!
+    category: Category!
+}
+
+type Category {
+    id: String!
+    name: String!
+    type: TransactionType!
+}
+
+extend type Query {
+    getTransactions: [Transaction!]!
+    getCategories: [Category!]!
+}
+
+extend type Mutation {
+    createTransaction(amount: Float!, type: TransactionType!, date: String!, accountId: String!, categoryId: String!): Transaction!
+    deleteTransaction(transactionId: String!): Transaction!
+    editTransaction(transactionId: String!, amount: Float, type: TransactionType, date: String, accountId: String, categoryId: String): Transaction!
+}
