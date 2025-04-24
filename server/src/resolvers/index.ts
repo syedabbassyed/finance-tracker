@@ -2,6 +2,7 @@ import { accountResolvers } from "./account";
 import { authResolvers } from "./auth";
 import { billResolvers } from "./bill";
 import { goalResolvers } from "./goal";
+import { overviewResolvers } from "./overview";
 import { transactionResolvers } from "./transactions";
 
 export const resolvers = {
@@ -11,7 +12,8 @@ export const resolvers = {
       ...goalResolvers.Query,
       ...accountResolvers.Query,
       ...transactionResolvers.Query,
-      ...billResolvers.Query
+      ...billResolvers.Query,
+      ...overviewResolvers.Query
     },
     Mutation: {
       ...authResolvers.Mutation,

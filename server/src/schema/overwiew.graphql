@@ -1,0 +1,10 @@
+type Overview {
+    totalBalance: Float!
+    recentTransactions: [Transaction!]!
+    upcomingBills: [Bill!]!
+    currentGoal: Goal
+}
+
+extend type Query {
+    getOverview: Overview!
+}
