@@ -39,8 +39,25 @@ const server = new ApolloServer({
     resolvers,
     introspection: true,
     formatError: (err) => {
-        console.error('GraphQL Error:', err);
-        return err;
+        const isProd = process.env.NODE_ENV === "production";
+    
+        if (!isProd) {
+            console.error("GraphQL Error:", err);
+            return err;
+        }
+    
+        // Production-safe error structure
+        if (err.extensions?.code === "BAD_USER_INPUT") {
+            return {
+                message: err.message,
+                code: err.extensions.code,
+            };
+        }
+    
+        return {
+            message: "Something went wrong. Please try again later.",
+            code: "INTERNAL_SERVER_ERROR"
+        };
     }
 });
 
