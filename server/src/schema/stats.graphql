@@ -1,0 +1,14 @@
+type DailyStats {
+    date: String!
+    income: Float!
+    expense: Float!
+}
+
+type WeeklyBreakdown {
+    thisWeek: [DailyStats!]!
+    lastWeek: [DailyStats!]!
+}
+
+extend type Query {
+    getWeeklyStats: WeeklyBreakdown!
+}
