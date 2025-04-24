@@ -94,6 +94,16 @@ export const authResolvers = {
             };
         },
 
+        logout: async (_: any, __: any, ctx: Context & { res: any }) => {
+            ctx.res.clearCookie("refreshToken", {
+                httpOnly: true,
+                secure: false, // set to true in production
+                sameSite: "Lax"
+            });
+          
+            return true;
+        }
+          
     },
 
     Query: {
