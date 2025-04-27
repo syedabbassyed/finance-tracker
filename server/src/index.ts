@@ -8,11 +8,15 @@ import cors from 'cors';
 import { expressMiddleware } from '@apollo/server/express4';
 import { createContext } from './context';
 import jwt from 'jsonwebtoken';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+import depthLimit from 'graphql-depth-limit';
 
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+app.use(helmet());
 app.use(cookieParser());
 
 app.post('/refresh-token', (req, res) => {
@@ -38,6 +42,7 @@ const server = new ApolloServer({
     typeDefs,
     resolvers,
     introspection: true,
+    validationRules: [depthLimit(5)],
     formatError: (err) => {
         const isProd = process.env.NODE_ENV === "production";
     
@@ -63,8 +68,15 @@ const server = new ApolloServer({
 
 await server.start();
 
+const graphqlLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    message: 'Too many requests. Please try again later.',
+});
+
 app.use(
     '/graphql',
+    graphqlLimiter,
     cors({
         origin: 'http://localhost:5173/',
         credentials: true

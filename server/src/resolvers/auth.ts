@@ -36,8 +36,8 @@ export const authResolvers = {
 
             ctx.res.cookie("refreshToken", refreshToken, {
                 httpOnly: true,
-                secure: false, // true in prod
-                sameSite: "Lax",
+                secure: ENV.NODE_ENV === 'production',
+                sameSite: ENV.NODE_ENV === 'production' ? 'None' : 'Lax',
                 maxAge: 30 * 24 * 60 * 60 * 1000,
             });
 
@@ -79,8 +79,8 @@ export const authResolvers = {
 
             ctx.res.cookie("refreshToken", refreshToken, {
                 httpOnly: true,
-                secure: false, // true in prod
-                sameSite: "Lax",
+                secure: ENV.NODE_ENV === 'production',
+                sameSite: ENV.NODE_ENV === 'production' ? 'None' : 'Lax',
                 maxAge: 30 * 24 * 60 * 60 * 1000,
             });
 
@@ -97,8 +97,8 @@ export const authResolvers = {
         logout: async (_: any, __: any, ctx: Context & { res: any }) => {
             ctx.res.clearCookie("refreshToken", {
                 httpOnly: true,
-                secure: false, // set to true in production
-                sameSite: "Lax"
+                secure: ENV.NODE_ENV === 'production',
+                sameSite: ENV.NODE_ENV === 'production' ? 'None' : 'Lax',
             });
           
             return true;
