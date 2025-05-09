@@ -4,5 +4,6 @@
 @theme {
     --color-primary: #299D91;
     --color-primary-text: #ffffff;
+    --color-default-black: #191919;
     --font-poppins: "Poppins", sans-serif;
 }
