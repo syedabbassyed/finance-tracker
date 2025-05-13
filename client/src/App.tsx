@@ -1,12 +1,8 @@
-import Sidebar from "./components/Sidebar";
+import AppRoutes from "./routes/AppRoutes";
 
 
 function App() {
-  
-
-  return <div className="font-poppins">
-    <Sidebar />
-    
-  </div>;
+  return <AppRoutes />;
 }
-export default App
+
+export default App;
