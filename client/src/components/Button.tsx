@@ -6,7 +6,7 @@ type ButtonProps =  {
 
 const Button = ({ text, onClick, type = 'button' }: ButtonProps) => {
     return (
-        <button className="w-[100%] bg-primary text-primary-text p-3" type={type} onClick={onClick}>
+        <button className="w-full bg-primary text-primary-text p-3 cursor-pointer text-[16px] font-semibold leading-6 rounded-sm" type={type} onClick={onClick}>
             {text}
         </button>
     )
