@@ -3,11 +3,15 @@ import InputField from "../../components/InputField"
 import Checkbox from "../../components/Checkbox";
 import Button from "../../components/Button";
 import { Link } from "react-router";
+import { useMutation } from "@apollo/client";
+import { LOGIN_MUTATION } from "../../graphql/mutations/auth.mutation";
 
 const LoginForm = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [keepSignedIn, setKeepSignedIn] = useState<boolean>(false)
+    const [keepSignedIn, setKeepSignedIn] = useState<boolean>(false);
+
+    const [login] = useMutation(LOGIN_MUTATION);
 
     const onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -19,17 +23,34 @@ const LoginForm = () => {
         setPassword(value);
     };
 
-    const submitForm = () => {
-        console.log("form submitted");
+    const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        
+        try {
+            const res = await login({
+                variables: {
+                    email, 
+                    password
+                }
+            });
+
+            const token = res.data.login.token;
+
+            localStorage.setItem("token", token);
+
+
+        } catch (err) {
+            console.error("Login Error", err)
+        }
     }
 
     return (
-        <form className="w-full">
+        <form className="w-full" onSubmit={submitForm}>
             <div className="w-full  mb-6">
                 <InputField 
                     label="Email Address"
                     type="email"
-                    placeholder="email"
+                    placeholder="johndoe@email.com"
                     value={email}
                     required={true}
                     onChange={onEmailChange}
@@ -39,7 +60,7 @@ const LoginForm = () => {
                 <InputField 
                     label="Password"
                     type="password"
-                    placeholder="password"
+                    placeholder="Enter your password"
                     value={password}
                     required={true}
                     onChange={onPasswordChange}
@@ -54,7 +75,7 @@ const LoginForm = () => {
             <div className="mt-4 mb-6">
                 <Button
                     text="Login"
-                    onClick={submitForm}
+                    type="submit"
                 />
             </div>
             <Link

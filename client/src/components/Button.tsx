@@ -1,7 +1,7 @@
 type ButtonProps =  {
     text: string;
     type?: 'button' | 'submit';
-    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Button = ({ text, onClick, type = 'button' }: ButtonProps) => {
