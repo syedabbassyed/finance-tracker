@@ -7,6 +7,8 @@
     --color-default-black: #191919;
     --color-input-border: #4B5768;
     --color-input-label: #191D23;
+    --color-header-border: #E8E8E8;
+    --color-subtext: #9F9F9F;
     --font-poppins: "Poppins", sans-serif;
     --font-inter: "Inter", sans-serif;
 }

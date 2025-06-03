@@ -1,6 +1,14 @@
+import Header from "../../components/Header";
+import Sidebar from "../../components/Sidebar";
+
 const OverviewPage = () => {
     return (
-        <h1>This is Overview page</h1>
+        <div className="flex">
+            <Sidebar />
+            <main className="grow">
+                <Header />
+            </main>
+        </div>
     );
 };
 
